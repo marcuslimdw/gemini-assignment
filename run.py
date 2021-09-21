@@ -25,6 +25,7 @@ getcontext().prec = 15
 
 async def main():
     house_address = create_address()
+    # TODO: Allow configuration.
     config = MixerConfig(3.0, 10.0, 3)
     mixer = Mixer(_gemini_client, spread_evenly, house_address, config)
     while True:

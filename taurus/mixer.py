@@ -75,6 +75,8 @@ class Mixer:
             coroutine = self._gemini_client.send_jobcoins(self._house_address, transaction.deposit_address, amount)
             coroutines.append(coroutine)
 
+            # TODO: Handle failures in sending Jobcoins.
+
         random.shuffle(coroutines)
         await asyncio.gather(*coroutines)
         _logger.info(f"Done settling {len(self._pending_mixes)} pending mixes.")

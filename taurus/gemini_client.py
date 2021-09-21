@@ -3,6 +3,9 @@ from httpx import AsyncClient, Response
 from taurus.domain import Address
 
 
+# TODO: Add method for creating Jobcoins (which is not exposed in the API documentation, but can be seen from the web portal)
+
+
 class GeminiClient:
     def __init__(self, base_url: str):
         self._base_url = base_url
