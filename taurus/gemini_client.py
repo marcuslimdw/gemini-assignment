@@ -20,7 +20,9 @@ class GeminiClient:
         async with AsyncClient() as client:
             return await client.get(url)
 
-    async def send_jobcoins(self, from_address: Address, to_address: Address, amount: str) -> Response:
+    async def send_jobcoins(
+        self, from_address: Address, to_address: Address, amount: str
+    ) -> Response:
         url = f"{self._base_url}/transactions"
         body = {"fromAddress": from_address, "toAddress": to_address, "amount": amount}
         async with AsyncClient() as client:

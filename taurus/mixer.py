@@ -26,11 +26,15 @@ class Mixer:
         self._house_address = house_address
         self._config = config
         self._pending_mixes: list[PendingSettlementMix] = []
-        self._tasks: list[Task] = [asyncio.create_task(self._start_mixing(), name=f"mix-{house_address}")]
+        self._tasks: list[Task] = [
+            asyncio.create_task(self._start_mixing(), name=f"mix-{house_address}")
+        ]
         _logger.info(f"Started mixing with house address {house_address}.")
 
     def watch(self, mix: PendingDepositMix):
-        self._tasks.append(asyncio.create_task(self._watch(mix), name=f"watch-{mix.deposit_address}"))
+        self._tasks.append(
+            asyncio.create_task(self._watch(mix), name=f"watch-{mix.deposit_address}")
+        )
 
     def stop(self):
         for task in self._tasks:
@@ -72,7 +76,9 @@ class Mixer:
         coroutines = []
         for transaction in transactions:
             amount = format(transaction.amount, "f")
-            coroutine = self._gemini_client.send_jobcoins(self._house_address, transaction.deposit_address, amount)
+            coroutine = self._gemini_client.send_jobcoins(
+                self._house_address, transaction.deposit_address, amount
+            )
             coroutines.append(coroutine)
 
             # TODO: Handle failures in sending Jobcoins.
